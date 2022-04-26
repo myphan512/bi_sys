@@ -1,0 +1,38 @@
+{% extends 'viz/navbar.html' %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Library</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
+</head>
+
+{% block title %}
+<h1>DASHBOARD LIBRARY</h1>
+{% endblock title %}
+
+
+{% block content %}
+
+<table class="table" style="width:90%">
+  <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Teams with Access</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for dash in dash_list %}
+        {% if dash.active and dash.get_slug %}
+        <tr>
+            <th scope="row">{{ dash.name }}</th>
+            <td> {{ dash.description }} </td>
+            <td> {{ dash.format_permitted_roles|join:', ' }} </td>
+        </tr>
+        {% endif %}
+      {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

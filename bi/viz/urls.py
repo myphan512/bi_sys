@@ -1,4 +1,5 @@
 from django.urls import path
+from django.shortcuts import redirect
 from . import views
 import importlib
 import os
@@ -12,5 +13,8 @@ for d in dashboards:
 
 #### REGISTER URLs
 urlpatterns = [
-    path('<slug:slug>/', views.render_dash)
+    path('dashboard/<slug:slug>/', views.render_dash),
+    path('', views.render_dashboard_library, name='dashboard_library'),
+    path('chart/<slug:slug>/', views.render_chart),
+    path('dashboard_library', lambda request: redirect('dashboard_library', permanent=False)),
 ]
