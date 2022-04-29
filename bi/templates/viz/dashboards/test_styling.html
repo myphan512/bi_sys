@@ -1,0 +1,9 @@
+{% extends 'viz/navbar.html' %}
+
+{% block content %}
+    {% load plotly_dash %}
+    <div class="{% plotly_class name='test_styling' %} card" style = "height:100%; width: 100%">
+        {% plotly_app name='test_styling' ratio=0.65 %}
+    </div>
+
+{% endblock content %}

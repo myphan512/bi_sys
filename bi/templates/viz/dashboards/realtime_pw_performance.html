@@ -1,0 +1,9 @@
+{% extends 'viz/navbar.html' %}
+
+{% block content %}
+    {% load plotly_dash %}
+    <div class="{% plotly_class name='realtime_pw_performance' %} card" style = "height:100%; width: 100%">
+        {% plotly_app name='realtime_pw_performance' ratio=0.65 %}
+    </div>
+
+{% endblock content %}

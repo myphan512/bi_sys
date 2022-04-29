@@ -4,7 +4,10 @@ from datetime import datetime, date, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from dash import dcc, html, dash_table, Input, Output, State
+from dash import dash_table
+from dash.dependencies import Input, Output, State
+import dash_core_components as dcc
+import dash_html_components as html
 import dash_bootstrap_components as dbc
 from django_plotly_dash import DjangoDash
 import inspect
@@ -396,3 +399,6 @@ def render_tab_content(active_tab):
                                      page_current=0, page_size=20),
                 ])
     return "No tab selected"
+
+
+

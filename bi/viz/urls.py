@@ -12,7 +12,7 @@ urlpatterns = [
     path('dashboard/<slug:slug>/', views.render_dash),
     path('chart/<slug:slug>/', views.render_chart),
     path('dashboard_library/', views.render_dashboard_library, name='dashboard_library'),
-
+    path('', lambda request: redirect('dashboard_library', permanent=False))
 ]
 
 
