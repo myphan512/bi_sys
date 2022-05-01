@@ -11,7 +11,7 @@ import datetime
 
 
 ######### CREATE DJANGO DASH APP
-app = DjangoDash(name='test_styling', external_stylesheets=[dbc.themes.ZEPHYR])
+app = DjangoDash(name='test_styling', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 
 #################################################################################

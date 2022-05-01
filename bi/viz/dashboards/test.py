@@ -1,5 +1,8 @@
 from django_plotly_dash import DjangoDash
-from dash import dcc, html, Input, Output, State, dash_table
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output, State
+from dash import dash_table
 import dash_bootstrap_components as dbc
 from datetime import date, timedelta
 from ..connect_db import runQuery_tidb

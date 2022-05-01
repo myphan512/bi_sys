@@ -1,6 +1,8 @@
 import plotly.express as px
 import plotly.graph_objects as go
-from dash import dash, dcc, html, Input, Output
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 from django_plotly_dash import DjangoDash
 import pandas as pd
