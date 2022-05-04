@@ -42,13 +42,13 @@ app.layout = html.Div([
     dbc.Row([
         html.H1("Testing Styling"),
         html.Hr(),
-    ], className='dash_title', style={'margin': '1rem'}),
+    ], className='row', style={'margin': '1rem'}),
     dbc.Row([
         dbc.Col([
-            html.H4("Sample Chart"),
+            html.H4("Sample Chart", style={'font-family':'Quattrocento Sans', 'font-weight':'bold', 'color':'#95969A'}),
             dcc.Graph(id='chart1', figure=fig1)
         ], width=11)
-    ],align='center',justify="evenly"),
+    ],align='center',justify="evenly", style={'background-color':'#2D3038'}),
     dbc.Row([
             dbc.Col([html.H4("Fig2"), dcc.Graph(id='fig2', figure=fig2)], width=4, style={'padding': '5rem'}),
             dbc.Col([html.H4("Fig3"), dcc.Graph(id='fig3', figure=fig3)], width=4, style={'padding': '5rem'}),

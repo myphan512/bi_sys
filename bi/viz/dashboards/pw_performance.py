@@ -123,7 +123,8 @@ def graph_daily_rev_PV(df):
     by_dates_graph.add_trace(go.Scatter(x=by_dates['datecl'], y=by_dates['rev'], name="Revenue ($)"),
                              secondary_y=True)
     by_dates_graph.update_layout(xaxis={'title':'Date'},
-                                 plot_bgcolor='white', margin=dict(l=20, r=20, t=20, b=20))
+                                 plot_bgcolor='white', margin=dict(l=20, r=20, t=20, b=20),
+                                 legend=dict(orientation="h",yanchor="bottom",y=1.02,xanchor="right",x=1))
     by_dates_graph.update_yaxes(title_text="Processing Volume", rangemode="tozero", tickformat="$,", secondary_y=False)
     by_dates_graph.update_yaxes(title_text="Revenue", rangemode="tozero", tickformat="$,", secondary_y=True)
     return by_dates_graph
@@ -202,7 +203,7 @@ def graph_countries_distribution(df):
     )
     graph_countries_distribution.update_coloraxes(showscale=False)
     graph_countries_distribution.update_traces(hovertemplate=by_countries['text'])
-    graph_countries_distribution.update_layout(margin={"r": 20, "t": 20, "l": 20, "b": 20}, autosize=False)
+    graph_countries_distribution.update_layout(margin={"r": 20, "t": 20, "l": 20, "b": 20}, autosize=True)
     graph_countries_distribution.update_geos(fitbounds="locations", visible=False)
 
     return graph_countries_distribution
@@ -270,50 +271,37 @@ filters = dbc.Card(
 
 ### OUTPUT
 
-app.layout = html.Div([
-    html.Div
-        ([
-            dbc.Container
-                (
-                    [
-                        html.H1("[PW] PERFORMANCE DASHBOARD"),
-                        html.Hr(),
-                        dbc.Row(
-                            [
-                                dbc.Col(filters, md=3),
-                                dbc.Col(dbc.Row([html.H4("Daily Performance"),
-                                                dcc.Graph(id='graph_daily_rev_PV', figure=graph_daily_rev_PV(data))]), md=9),
-                            ],
-                            align="center",
-                        ),
-                    ],
-                    fluid=True,
-                ),
-
-            dbc.Row
-                ([
-                    dbc.Col(dbc.Row([html.H4("Processing Projects"), dcc.Graph(id='graph_project_distitribution', figure=graph_project_distribution(data))]), md=4),
-                    dbc.Col(dbc.Row([html.H4("Processing Payment Systems"), dcc.Graph(id='graph_ps_distribution', figure=graph_ps_distribution(data))]), md=4),
-                    dbc.Col(dbc.Row([html.H4("Processing Click Countries"), dcc.Graph(id='graph_countries_distribution', figure=graph_countries_distribution(data))]), md=4),
-                ]),
-        ]),
-
-    dbc.CardHeader
-        (
-        dbc.Tabs
-            (
-                [
-                    dbc.Tab(label="Projects' Performance", tab_id="tab_project_performance"),
-                    dbc.Tab(label="Payment Systems' Performance", tab_id="tab_ps_performance"),
-                ],
-                id="tabs",
-                active_tab="tab_project_performance",
-            ),
-        ),
-    html.Div(id="tab-content"),
-])
 
 ########## CALLBACKS
+app.layout = html.Div([
+    dbc.Row([
+        html.H1("[PW] Performance"),
+        html.Hr(),
+    ], className='dash_title', style={'margin': '1rem'}),
+
+    dbc.Row([
+        dbc.Col(filters, width=3),
+        dbc.Col(dbc.Row([html.H4("Daily Performance"),
+                        dcc.Graph(id='graph_daily_rev_PV', figure=graph_daily_rev_PV(data))]), width=9),
+    ], align='center', justify="evenly", style={'margin':'1px'}),
+
+    # dbc.Row
+    #     ([
+    #         dbc.Col([html.H4("Processing Projects"), dcc.Graph(id='graph_project_distitribution', figure=graph_project_distribution(data))], width=4, style={'padding':'1rem'}),
+    #         dbc.Col([html.H4("Processing Payment Systems"), dcc.Graph(id='graph_ps_distribution', figure=graph_ps_distribution(data))], width=4, style={'padding':'1rem'}),
+    #         dbc.Col([html.H4("Processing Click Countries"), dcc.Graph(id='graph_countries_distribution', figure=graph_countries_distribution(data))], width=4, style={'padding':'1rem'}),
+    #     ], align='center', justify="evenly", style={'margin':'1px'}),
+
+    dbc.CardHeader([
+            dbc.Tabs([
+                        dbc.Tab(label="Projects' Performance", tab_id="tab_project_performance"),
+                        dbc.Tab(label="Payment Systems' Performance", tab_id="tab_ps_performance"),
+                        dbc.Tab(label="Click Countries' Performance", tab_id="tab_co_performance"),
+                    ], id="tabs", active_tab="tab_project_performance"),
+        ]),
+    html.Div(id="tab-content", style={'margin-top':'1rem', 'margin-left':'3rem', 'margin-right':'3rem'}),
+
+])
 ##### FILTERS
 @app.callback([Output('graph_daily_rev_PV', 'figure'),
                Output('graph_project_distitribution', 'figure'),
@@ -360,7 +348,8 @@ def update_conditions(n_clicks, start_date, end_date, project_list, ps_list, co_
 def render_tab_content(active_tab):
     if active_tab:
         if active_tab == "tab_project_performance":
-            return html.Div([dcc.Graph(id='graph_top_project_daily_PV', figure=graph_top_project_daily_PV(data)),
+            return html.Div([dbc.Row([html.H4("Processing Projects"), dcc.Graph(id='graph_project_distitribution', figure=graph_project_distribution(data))], style={'padding':'1rem'}),
+                            dbc.Row([html.H4("Top 10 Projects' Daily Performance"), dcc.Graph(id='graph_top_project_daily_PV', figure=graph_top_project_daily_PV(data))]),
                              dash_table.DataTable(id='pivot_project_daily_PV',
                                                   data=pivot_project_daily_PV(data).to_dict("records"),
                                                   columns=[{"name": i, "id": i} for i in
@@ -381,23 +370,26 @@ def render_tab_content(active_tab):
 
                              ])
         elif active_tab == "tab_ps_performance":
-            return html.Div([dcc.Graph(id='graph_top_ps_daily_PV',figure=graph_top_ps_daily_PV(data)),
-                dash_table.DataTable(id='pivot_ps_daily_PV',
-                                     data=pivot_ps_daily_PV(data).to_dict("records"),
-                                     columns=[{"name": i, "id": i} for i in pivot_ps_daily_PV(data).columns],
-                                     style_table={'overflowX': 'auto'},
-                                     style_cell={
-                                         'height': 'auto',
-                                         # all three widths are needed
-                                         'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                         'whiteSpace': 'normal'
-                                     },
-                                     filter_action="native",
-                                     sort_action="native",
-                                     sort_mode='multi',
-                                     page_action='native',
-                                     page_current=0, page_size=20),
+            return html.Div([dbc.Row([html.H4("Processing Payment Systems"), dcc.Graph(id='graph_ps_distribution', figure=graph_ps_distribution(data))], style={'padding':'1rem'}),
+                            dcc.Graph(id='graph_top_ps_daily_PV',figure=graph_top_ps_daily_PV(data)),
+                            dash_table.DataTable(id='pivot_ps_daily_PV',
+                                                 data=pivot_ps_daily_PV(data).to_dict("records"),
+                                                 columns=[{"name": i, "id": i} for i in pivot_ps_daily_PV(data).columns],
+                                                 style_table={'overflowX': 'auto'},
+                                                 style_cell={
+                                                     'height': 'auto',
+                                                     # all three widths are needed
+                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                     'whiteSpace': 'normal'
+                                                 },
+                                                 filter_action="native",
+                                                 sort_action="native",
+                                                 sort_mode='multi',
+                                                 page_action='native',
+                                                 page_current=0, page_size=20),
                 ])
+        elif active_tab == 'tab_co_performance':
+            return html.Div([dbc.Row([html.H4("Processing Click Countries"), dcc.Graph(id='graph_countries_distribution', figure=graph_countries_distribution(data))], style={'padding':'1rem'}),])
     return "No tab selected"
 
 

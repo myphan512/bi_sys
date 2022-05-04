@@ -71,7 +71,8 @@ def graph_overall_performance(df, click_color, conversion_color, cr_color, show_
         go.Scatter(x=overall['datecl'], y=overall['conversion_rate'], name="Conversion Rate", marker_color=cr_color),
         secondary_y=True)
     overall_graph.update_layout(xaxis={'title': 'Time', 'tickformat': '%H:%M'},
-                                plot_bgcolor='white', hovermode="x", margin=dict(l=20, r=20, t=0, b=0), showlegend=show_legend)
+                                plot_bgcolor='white', hovermode="x", margin=dict(l=20, r=20, t=0, b=0), showlegend=show_legend,
+                                legend=dict(orientation="h",yanchor="bottom",y=1.02,xanchor="right",x=1))
     overall_graph.update_yaxes(title_text="#Clicks", rangemode="tozero", secondary_y=False)
     overall_graph.update_yaxes(title_text="Conversion Rate (%)", rangemode="tozero", secondary_y=True, range=[0, 1],
                                tickformat=".0%")
@@ -92,30 +93,32 @@ def graph_var_performance(**kwargs):
 ################################################ LAYOUT
 app.layout = html.Div([
     dcc.Interval(id='live_updating', interval=60*1000, n_intervals=0),
-    html.H1("[PW] REAL-TIME PERFORMANCE DASHBOARD"),
-    html.Hr(),
-    html.Div(id='output'),
-    dbc.Container([
-        html.H3("Overall Performance"),
-        dcc.Graph(id='graph_overall_performance', figure=graph_overall_performance(data, click_color='blue', conversion_color='red', cr_color='green', show_legend=True)),
-    ], fluid=True),
+    dbc.Row([
+        html.H1("[PW] REAL-TIME PERFORMANCE DASHBOARD"),
+        html.Hr(),
+    ], className='dash_title', style={'margin': '1rem'}),
+    dbc.Row([
+        dbc.Col([
+            html.H3("Overall Performance"),
+            dcc.Graph(id='graph_overall_performance', figure=graph_overall_performance(data, click_color='blue', conversion_color='red', cr_color='green', show_legend=True)),
+        ], width=11)
+    ], align='center', justify="evenly"),
     dbc.Row([
         dbc.Col([
             dbc.Tabs(
                 [
                     dbc.Tab(tab_id='project_watchlist', label="Project Watchlist"),
                     dbc.Tab(tab_id='ps_watchlist', label="PS Watchlist"),
-                ], id='tabs', active_tab='project_watchlist',
+                ], id='tabs', active_tab='project_watchlist', style={'padding-top':'5rem', 'padding-bottom':'1rem', 'padding-left':'5rem', 'padding-right':'5rem'}
             ),
             html.Div(id='tab_content')
-        ], width=11)
+        ], width=12)
     ],align='center',justify="evenly"),
 ])
 
 #################################################################################
 ################################################ CALLBACKS
-@app.callback([Output('output','children'),
-               Output('graph_overall_performance','figure'),
+@app.callback([Output('graph_overall_performance','figure'),
                Output('tab_content','children')
                ],
               [Input('tabs','active_tab'), Input('live_updating','n_intervals')])
@@ -123,76 +126,83 @@ def update_live_and_switch_tab(active_tab, n_intervals):
     global data
     data = get_raw_data()
     if active_tab=='project_watchlist':
-        return [u'''Time now: {} --- updated {} times'''.format(datetime.datetime.now(), n_intervals),
-                graph_overall_performance(data, click_color='blue', conversion_color='red', cr_color='green', show_legend=True),
+        return [graph_overall_performance(data, click_color='blue', conversion_color='red', cr_color='green', show_legend=True),
                 dbc.Container([
                     dbc.Row([
-                        dbc.Col([
-                            html.H6("[388099] Black Desert Online (NA/EU)"),
-                            dcc.Graph(id='graph_project_388099_performance',
-                                      figure=graph_var_performance(project_id=[388099], click_color='orange',
-                                                                   conversion_color='grey', cr_color='red', show_legend=False)),
-                        ], md=4),
-                        dbc.Col([
-                            html.H6("[381469] Gameforge - Credit Cards"),
-                            dcc.Graph(id='graph_project_381469_performance',
-                                      figure=graph_var_performance(project_id=[381469], click_color='pink',
-                                                                   conversion_color='purple', cr_color='blue', show_legend=False)),
-                        ], md=4),
-                        dbc.Col([
-                            html.H6("[390113] GI - Credit Cards"),
-                            dcc.Graph(id='graph_project_390113_performance',
-                                      figure=graph_var_performance(project_id=[390113], click_color='blue',
-                                                                   conversion_color='orange', cr_color='green', show_legend=False)),
-                        ], md=4),
-                    ]),
+                        html.H6("[388099] Black Desert Online (NA/EU)"),
+                        dcc.Graph(id='graph_project_388099_performance',
+                                  figure=graph_var_performance(project_id=[388099], click_color='orange',
+                                                               conversion_color='grey', cr_color='red',
+                                                               show_legend=False)),
+                    ], style={'padding-top':'2rem', 'padding-bottom':'1rem', 'padding-left':'5rem', 'padding-right':'5rem'}),
                     dbc.Row([
-                        dbc.Col([
-                            html.H6("[43438] MMOGA Limited"),
-                            dcc.Graph(id='graph_project_43438_performance',
-                                      figure=graph_var_performance(project_id=[43438], click_color='blue',
-                                                                   conversion_color='green', cr_color='orange',
-                                                                   show_legend=False)),
-                        ], md=4),
-                        dbc.Col([
+                        html.H6("[381469] Gameforge - Credit Cards"),
+                        dcc.Graph(id='graph_project_381469_performance',
+                                  figure=graph_var_performance(project_id=[381469], click_color='pink',
+                                                               conversion_color='purple', cr_color='blue',
+                                                               show_legend=False)),
+                    ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                              'padding-right': '5rem'}),
+                    dbc.Row([
+                        html.H6("[390113] GI - Credit Cards"),
+                        dcc.Graph(id='graph_project_390113_performance',
+                                  figure=graph_var_performance(project_id=[390113], click_color='blue',
+                                                               conversion_color='orange', cr_color='green',
+                                                               show_legend=False)),
+                    ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                              'padding-right': '5rem'}),
+
+
+                    dbc.Row([
+                        html.H6("[43438] MMOGA Limited"),
+                        dcc.Graph(id='graph_project_43438_performance',
+                                  figure=graph_var_performance(project_id=[43438], click_color='blue',
+                                                               conversion_color='green', cr_color='orange',
+                                                               show_legend=False)),
+                    ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                              'padding-right': '5rem'}),
+                    dbc.Row([
                             html.H6("[24120] Wargaming Production EU"),
                             dcc.Graph(id='graph_project_24120_performance',
                                       figure=graph_var_performance(project_id=[24120], click_color='red',
                                                                    conversion_color='black', cr_color='grey',
                                                                    show_legend=False)),
-                        ], md=4),
-                        dbc.Col([
+                    ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                              'padding-right': '5rem'}),
+                    dbc.Row([
                             html.H6("[23350] GTArcade"),
                             dcc.Graph(id='graph_project_23350_performance',
                                       figure=graph_var_performance(project_id=[23350], click_color='purple',
                                                                    conversion_color='grey', cr_color='blue',
                                                                    show_legend=False)),
-                        ], md=4),
-                    ]),
-                ],fluid=True),
+                    ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                              'padding-right': '5rem'}),
+                ],fluid=True)
                 ]
     elif active_tab == 'ps_watchlist':
-        return [u'''Time now: {} --- updated {} times'''.format(datetime.datetime.now(), n_intervals),
-                graph_overall_performance(data, click_color='blue', conversion_color='red', cr_color='green', show_legend=True),
-                dbc.Row([
-                        dbc.Col([
+        return [graph_overall_performance(data, click_color='blue', conversion_color='red', cr_color='green', show_legend=True),
+                dbc.Container([
+                        dbc.Row([
                             html.H6("[132] Gateway"),
                             dcc.Graph(id='graph_ps_132_performance',
                                       figure=graph_var_performance(ps_id=[132], click_color='orange',
                                                                    conversion_color='grey', cr_color='red', show_legend=False)),
-                        ], md=4),
-                        dbc.Col([
+                        ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                                  'padding-right': '5rem'}),
+                        dbc.Row([
                             html.H6("[1] PayPal"),
                             dcc.Graph(id='graph_ps_1_performance',
                                       figure=graph_var_performance(ps_id=[1], click_color='pink',
                                                                    conversion_color='purple', cr_color='blue', show_legend=False)),
-                        ], md=4),
-                        dbc.Col([
+                        ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                                  'padding-right': '5rem'}),
+                        dbc.Row([
                             html.H6("[144] Mobiamo"),
                             dcc.Graph(id='graph_ps_144_performance',
                                       figure=graph_var_performance(ps_id=[144], click_color='blue',
                                                                    conversion_color='orange', cr_color='green', show_legend=False)),
-                        ], md=4),
-                    ]),
+                        ], style={'padding-top': '2rem', 'padding-bottom': '1rem', 'padding-left': '5rem',
+                                  'padding-right': '5rem'}),
+                    ],fluid=True),
                 ]
 
