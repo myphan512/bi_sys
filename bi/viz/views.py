@@ -33,3 +33,7 @@ def render_chart(request, slug):
         module = importlib.import_module('.charts.'+slug, package=__package__)
         context = {'graph':module.fig.to_html()}
         return render(request, 'viz/charts/chart.html', context)
+
+
+def test(request):
+    return render(request,'dashboards/images/logo.png')

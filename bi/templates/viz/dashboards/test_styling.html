@@ -1,38 +1,10 @@
 {% extends 'viz/navbar.html' %}
-{% load static %}
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>
-      Django Sample Site - {% block title %}{% endblock %}
-    </title>
 
-    <script src="{% static 'js/main.js' %}"></script> <!-- This is how to include a static file -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css" />
-
-  </head>
-
-  <body>
-
-    {% block content %}
+{% block content %}
     {% load plotly_dash %}
-
-      <p>HIIiii</p>
-    <div class="container-overwrite">
-      <p>Hello</p>
-      </div>
-
-    <img src="{% static 'dashboards/images/logo.png' %}" alt="My image">
-
-    <div class="{% plotly_class name='test_styling' %} card" style = "height:100%; width: 100%">
+    <div class="{% plotly_class name='test_styling' %}" style = "height:100%; width: 100%; background-color:#eaeaea">
         {% plotly_app name='test_styling' ratio=0.65 %}
     </div>
 
-    {% endblock content %}
-
-    </div>
-  </body>
-
-
-
+{% endblock content %}
 

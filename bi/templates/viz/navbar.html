@@ -7,64 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
-  <link rel="stylesheet" href="{% static 'dashboards/css/base.css' %}" type="text/css" />
-
-<!--  <style>-->
-<!--    .row {-->
-<!--      background: #23262E;-->
-<!--    }-->
-
-<!--&lt;!&ndash;    .navbar {&ndash;&gt;-->
-<!--&lt;!&ndash;      background-color: #2d3038;&ndash;&gt;-->
-<!--&lt;!&ndash;      color: #95969A;&ndash;&gt;-->
-<!--&lt;!&ndash;      font-family:Quattrocento Sans;&ndash;&gt;-->
-<!--&lt;!&ndash;      font-weight: bold;&ndash;&gt;-->
-<!--&lt;!&ndash;      display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-
-<!--&lt;!&ndash;    .body {&ndash;&gt;-->
-<!--&lt;!&ndash;      background-color: #23262E;&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-
-<!--&lt;!&ndash;    .navbar-styled {&ndash;&gt;-->
-<!--&lt;!&ndash;      display:inline-block;&ndash;&gt;-->
-<!--&lt;!&ndash;      width:100%;&ndash;&gt;-->
-<!--&lt;!&ndash;      position:absolute;&ndash;&gt;-->
-<!--&lt;!&ndash;      background-color: #23262E;&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-
-<!--    .navbar-li {-->
-<!--      display:inline-block;-->
-<!--      white-space:nowrap;-->
-<!--      background-color:#2d3038;-->
-<!--      font-family:Quattrocento Sans;-->
-<!--      padding:20px 40px;-->
-<!--    }-->
-
-<!--    li {-->
-<!--      font-size:20px;-->
-<!--    }-->
-
-<!--  </style>-->
 
 </head>
 <body>
 
-<div class="container">
-  <p>Hello</p>
-</div>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard_library' %}"><img src="{% static 'dashboards/images/logo.png' %}" style=" width: 100%; max-width:150px; object-fit: contain;"></a>
+          </li>
+          <li class="nav-item" style="font-size:1rem">
             <a class="nav-link" href="{% url 'dashboard_library' %}">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="font-size:1rem">
             <a class="nav-link" href="{% url 'dashboard_library' %}">Dashboards</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="font-size:1rem">
             <a class="nav-link" href="#">About</a>
           </li>
         </ul>
@@ -74,23 +35,7 @@
 
 
 
-<!--  <div class="navbar-styled">-->
-<!--      <ul>-->
-<!--          <li class="logo"><img src="{%  static 'logo.png' %}"></li>-->
-<!--          <li class="navbar-li">text1</li>-->
-<!--          <li class="navbar-li">text2</li>-->
-<!--          <li class="navbar-li">text3</li>-->
-
-<!--      </ul>-->
-<!--  </div>-->
-
-<!--  <div>-->
-<!--    <img src="{%  static 'images/logo.png' %}">-->
-<!--  </div>-->
-
-
 {% block content %}
-
 {% endblock %}
 
 </body>

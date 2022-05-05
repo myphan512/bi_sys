@@ -1,7 +1,7 @@
 from django.db import models
 import os
 from os import listdir
-
+from django.utils.safestring import mark_safe
 
 # Dashboard model
 dashboards = [f for f in listdir((os.path.abspath(os.path.dirname(__file__))+'\dashboards').replace('\\', '/')) if f.endswith('.py')]
@@ -48,6 +48,11 @@ class Role(models.Model):
             permitted_dash.append(dash.name)
         return permitted_dash
     format_permitted_dash.short_description = 'Dashboards with Access'
+
+    def image_tag(self):
+        return mark_safe('<center>Location: {0}<center>\n<img src="{1}" width="150" height="150" />'.format('static/dashboards/images/logo.png',
+                                                                                                                'static/dashboards/images/logo.png'))  # width="150" height="150"
+            # return mark_safe('<img src="%s" width="150" height="150" />'.format(self.photo.path))
 
 
 

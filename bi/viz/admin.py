@@ -10,8 +10,9 @@ from .views import *
 # Role Admin Site
 class RoleAdmin(admin.ModelAdmin):
     filter_horizontal = ['dashboards']
-    list_display = ['id', 'name', 'format_permitted_dash']
+    list_display = ['id', 'name', 'format_permitted_dash', ]
     ordering = ['id']
+    readonly_fields = ['image_tag']
 
 # Chart Admin Site
 class ChartAdmin(admin.ModelAdmin):
