@@ -1,0 +1,19 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
+</head>
+
+{% extends 'viz/navbar.html' %}
+
+
+
+<body>
+    {% block content %}
+
+        {% load plotly_dash %}
+            {% plotly_app name=dashboard.get_slug ratio=0.65 %}
+
+    {% endblock content %}
+</body>
+</html>

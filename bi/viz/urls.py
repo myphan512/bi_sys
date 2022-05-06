@@ -4,7 +4,6 @@ from . import views
 import importlib
 import os
 from os import listdir
-from django.views.generic import TemplateView
 
 
 #### REGISTER URLs
@@ -13,7 +12,6 @@ urlpatterns = [
     path('chart/<slug:slug>/', views.render_chart),
     path('dashboard_library/', views.render_dashboard_library, name='dashboard_library'),
     path('', lambda request: redirect('dashboard_library', permanent=False)),
-    path('test',views.test)
 ]
 
 
@@ -23,4 +21,4 @@ for d in dashboards:
     d = d[:d.index('.py')]
     module = importlib.import_module('.dashboards.'+d, package=__package__)
     ### Register dashboard slug with names to redirect lickable link
-    urlpatterns.append(path('dashboard/'+d, TemplateView.as_view(template_name='viz/dashboards/'+d+'.html'), name=d))
+    urlpatterns.append(path('dashboard/' + d + '/', views.render_dash, name=d))

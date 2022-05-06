@@ -19,7 +19,9 @@ def render_dash(request, slug):
     if slug+'.py' not in dashboards:
         return HttpResponseNotFound('<h1>Dashboard Not Found</h1>')
     else:
-        return render(request, 'viz/dashboards/'+slug+'.html')
+        dashboard = Dashboard.objects.get(file=slug+'.py')
+        context = {'dashboard':dashboard}
+        return render(request, 'viz/dashboards/dashboard.html', context)
 
 
 ### RENDER GRAPH
@@ -34,6 +36,3 @@ def render_chart(request, slug):
         context = {'graph':module.fig.to_html()}
         return render(request, 'viz/charts/chart.html', context)
 
-
-def test(request):
-    return render(request,'dashboards/images/logo.png')

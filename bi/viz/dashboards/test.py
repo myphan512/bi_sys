@@ -114,6 +114,6 @@ app.layout = html.Div(
             dbc.Col(dbc.Row([html.H4("Bubble chart"), dcc.Graph(id='fig2',figure=fig2)]), width=7, style={'padding':'1rem', 'background-color':'#535453'}),
             dbc.Col(dbc.Row([html.H4("Bar chart"), dcc.Graph(id='fig4',figure=fig4)]), width=5, style={'padding':'1rem', 'background-color':'#535453'}),
         ])
-    ], style={'background-color':'#282828'}
+    ], style={'background-color':'#282828', 'overflow-x':'hidden'}
 )
 

@@ -8,25 +8,29 @@
 
   <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
 
+  <link rel="icon" type="image/x-icon" href="{% static 'dashboards/images/favicon.png' %}">
+  {% block title %}{% endblock title %}
 </head>
 <body>
 
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:0.25rem">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'dashboard_library' %}"><img src="{% static 'dashboards/images/logo.png' %}" style=" width: 100%; max-width:150px; object-fit: contain;"></a>
+          <li class="nav-item" style="margin:0rem">
+            <a href="{% url 'dashboard_library' %}" style="padding-right:1rem">
+              <img src="{% static 'dashboards/images/logo.png' %}" style=" width: 100%; max-width:150px">
+            </a>
           </li>
           <li class="nav-item" style="font-size:1rem">
-            <a class="nav-link" href="{% url 'dashboard_library' %}">Home</a>
+            <a class="nav-link" href="{% url 'dashboard_library' %}" style="margin:0rem">Home</a>
           </li>
           <li class="nav-item" style="font-size:1rem">
-            <a class="nav-link" href="{% url 'dashboard_library' %}">Dashboards</a>
+            <a class="nav-link" href="{% url 'dashboard_library' %}" style="margin:0rem">Dashboards</a>
           </li>
           <li class="nav-item" style="font-size:1rem">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#" style="">About</a>
           </li>
         </ul>
       </div>
@@ -34,9 +38,9 @@
   </nav>
 
 
+    {% block content %}
+    {% endblock %}
 
-{% block content %}
-{% endblock %}
 
 </body>
 </html>

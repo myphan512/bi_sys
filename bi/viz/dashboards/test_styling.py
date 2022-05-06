@@ -56,4 +56,4 @@ app.layout = html.Div([
             dbc.Col([html.H4("Fig3"), dcc.Graph(id='fig3', figure=fig3)], width=4, style={'padding': '5rem'}),
             dbc.Col([html.H4("Fig4"), dcc.Graph(id='fig4', figure=fig2)], width=4, style={'padding': '5rem'}),
     ],align='center',justify="evenly"),
-], style={'background-color':'#eaeaea'})
+], style={'background-color':'#eaeaea', 'overflow-x':'hidden', 'overflow-y':'hidden'})
