@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans
 
 
 ############ REGISTER APP
-app = DjangoDash(name='simple_example', external_stylesheets=[dbc.themes.ZEPHYR])
+app = DjangoDash(name='simple_example', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 
 ############ CODE

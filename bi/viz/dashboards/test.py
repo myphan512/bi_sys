@@ -11,7 +11,7 @@ from plotly.subplots import make_subplots
 import plotly.express as px
 import plotly.graph_objects as go
 
-app = DjangoDash(name='test', external_stylesheets=[dbc.themes.CYBORG])
+app = DjangoDash(name='test', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 ### Design
 # 1.
