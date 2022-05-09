@@ -5,7 +5,6 @@ from dash.dependencies import Input, Output, State
 from dash import dash_table
 import dash_bootstrap_components as dbc
 from datetime import date, timedelta
-from ..connect_db import runQuery_tidb
 import pandas as pd
 import numpy as np
 from plotly.subplots import make_subplots
