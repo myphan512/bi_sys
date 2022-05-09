@@ -2,3 +2,9 @@ venv
 *.pyc
 .DS_Store
 .env
+
+# Text backup files
+*.bak
+
+# Database
+*.sqlite3
