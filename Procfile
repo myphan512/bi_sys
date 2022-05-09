@@ -1,1 +1,1 @@
-web: gunicorn bi_sys.bi.wsgi
+web: gunicorn bi.bi.wsgi
