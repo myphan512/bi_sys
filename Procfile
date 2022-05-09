@@ -1,1 +1,1 @@
-web: gunicorn bi.bi.wsgi
+web: gunicorn --pythonpath bi bi.wsgi
