@@ -1,11 +1,11 @@
-.venv
-venv
-*.pyc
-.DS_Store
-.env
+env
+.idea
 
 # Text backup files
 *.bak
 
 # Database
 *.sqlite3
+
+notebooks
+

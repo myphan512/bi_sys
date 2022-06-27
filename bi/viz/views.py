@@ -11,6 +11,10 @@ def render_dashboard_library(request):
     context = {'dash_list': dash_list}
     return render(request, 'viz/dashboards/dashboard_library.html', context)
 
+### RENDER ABOUT PAGE
+def render_about(request):
+    return render(request, 'viz/about.html')
+
 
 ### RENDER DASHBOARD
 def render_dash(request, slug):

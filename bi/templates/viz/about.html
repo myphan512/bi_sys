@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
+    <title>About Page</title>
+</head>
+
+{% extends 'viz/navbar.html' %}
+
+<body> 
+    {% block content %}
+        <div class="paragraph" style="margin:2rem; font-family:Georgia">   
+            <h2 style="text-align: center; ">Hi, I'm My!</h2>
+            <p>Welcome to my portfolio!
+                This is a Django project that manages all of my dashboards on the backend, while each dashboard is a Plotly Dash app.</p>
+            <h5>Why Plotly Dash?</h5>
+            <p>It's an open source framework with plenty of built-in functions and graphs for creating interactive dashboards. 
+                Especially, Plotly provides the ability to freely customize graphs and charts based on your needs, unlike most BI platforms which you probably find some limitations.
+                Plus, No experience in HTML, CSS and Javascript is needed to build a web application.
+            </p>
+            <h5>Why Django?</h5>
+            <p>Again, it's an open source framework! 
+                It wasn't too challenging for me to develop this web app thanks to simple syntax, ORM (Object Relational Mapper), multiple built-in packages and database backends.
+                The code is reusable, thus, simplifying the development process.
+                <br>
+                Below are some of the cool applications of Djando (according to djangostars in the article <a href="https://djangostars.com/blog/why-we-use-django-framework/"> "Why We Use Django Framework & What Is Django Used For"</a>):
+                <ul class="example" style="padding-top:0px">
+                    <li>Data-analysis tools</li>
+                    <li>Admin dashboards</li>
+                    <li>Financial platforms with features for analyzing and calculating approximate results based on personal data, risk tolerance, the probability of achieving goals</li>
+                    <li>Built-in custom CRM systems for internal data</li>
+                    <li>B2B CRM systems for handling communication between businesses</li>
+                    <li>Platforms that facilitate communication between two parties, such as a business and a consumer</li>
+                    <li>High-load booking engines or shopping platforms</li>
+                    <li>Android and iOS mobile apps that support web applications</li>
+                    <li>Real estate property evaluation systems</li>
+                    <li>Document management systems</li>
+                    <li>Platforms for handling legal issues like verifying mortgage conditions or lease status</li>
+                    <li>An emailing system for sending notifications to users</li>
+                    <li>A filtering system with advanced logic and dynamically changing rules</li>
+                    <li>Algorithm-based generators</li>
+                    <li>Interfaces for managing investment funds</li>
+                    <li>Photo-based verification systems</li>
+                </ul>
+            </p>
+        </div>
+    {% endblock %}
+
+</body>
+</html>
